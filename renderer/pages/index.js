@@ -8,6 +8,9 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
 function MetodosCuadrados(size, seed) {
   let newSeed = seed;
@@ -23,17 +26,14 @@ function MetodosCuadrados(size, seed) {
       temp.push(newSeed / 10000);
       values.push(temp);
       temp = [];
-      console.log(newSeed);
     } else {
       newSeed = parseInt(newSeed.toString().substring(1, 5));
       temp.push(newSeed);
       temp.push(newSeed / 10000);
       values.push(temp);
       temp = [];
-      console.log(newSeed);
     }
   }
-  console.log(values);
   return values;
 }
 
@@ -91,15 +91,47 @@ function gcd(a, b) {
 }
 
 //CongruencialLineal(4, 5, 7, 8, 5)
-console.log(CongruencialMixto(4, 5, 7, 8, 5));
 //console.log((5 - 1) % 4)
 
-let metodos = MetodosCuadrados(8, 3708);
-
 export default function Index() {
+  const [metodos, setMetodos] = React.useState([[]]);
+  const [seed, setSeed] = React.useState(0);
+  const [size, setSize] = React.useState(0);
+  const handleSeed = (event) => {
+    setSeed(event.target.value);
+  };
+  const handleSize = (event) => {
+    setSize(event.target.value);
+  };
+
   return (
     <Container maxWidth="lg">
       <Box sx={{ my: 4 }}>
+        <Box sx={{ mb: 2, fontSize: "h4.fontSize", fontFamily: "Arial" }}>
+          Método de los cuadrados medios
+        </Box>
+        <Stack spacing={2} direction="row">
+          <TextField
+            id="outlined-basic"
+            label="Seed"
+            variant="outlined"
+            onChange={handleSeed}
+          />
+          <TextField
+            id="outlined-basic"
+            label="Size"
+            variant="outlined"
+            onChange={handleSize}
+          />
+          <Button
+            variant="contained"
+            onClick={() => {
+              setMetodos(MetodosCuadrados(size, seed));
+            }}
+          >
+            Contained
+          </Button>
+        </Stack>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
@@ -116,10 +148,10 @@ export default function Index() {
                   key={metodo[0]}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
-                  <TableCell component="th">{metodo[0]}</TableCell>
-                  <TableCell component="th">{metodo[1]}</TableCell>
-                  <TableCell component="th">{metodo[2]}</TableCell>
-                  <TableCell component="th">{metodo[3]}</TableCell>
+                  <TableCell>{metodo[0]}</TableCell>
+                  <TableCell>{metodo[1]}</TableCell>
+                  <TableCell>{metodo[2]}</TableCell>
+                  <TableCell>{metodo[3]}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
