@@ -1,0 +1,123 @@
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import ResponsiveAppBar from "../components/navbar";
+import { ThemeProvider } from "@emotion/react";
+import { createTheme } from "@mui/material/styles";
+
+function MetodosCuadrados(size, seed) {
+  let newSeed = seed;
+  let values = [];
+  let temp = [];
+  for (let i = 0; i < size; i++) {
+    temp.push(newSeed);
+    newSeed = Math.pow(newSeed, 2);
+    temp.push(newSeed);
+    if (newSeed.toString().length === 8) {
+      newSeed = parseInt(newSeed.toString().substring(2, 6));
+      temp.push(newSeed);
+      temp.push(newSeed / 10000);
+      values.push(temp);
+      temp = [];
+    } else {
+      newSeed = parseInt(newSeed.toString().substring(1, 5));
+      temp.push(newSeed);
+      temp.push(newSeed / 10000);
+      values.push(temp);
+      temp = [];
+    }
+  }
+  return values;
+}
+
+const theme = createTheme({
+  palette: {
+    mode: "dark",
+  },
+});
+
+export default function MetodoCentroCuadrado() {
+  const [metodos, setMetodos] = React.useState([[]]);
+  const [seed, setSeed] = React.useState(0);
+  const [size, setSize] = React.useState(0);
+
+  return (
+    <ThemeProvider theme={theme}>
+      <Paper
+        sx={{
+          p: 2,
+          margin: "auto",
+          maxWidth: "100%",
+          backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+        }}
+      >
+        <ResponsiveAppBar />
+        <Box sx={{ my: 4 }}>
+          <Box sx={{ mb: 2, fontSize: "h4.fontSize", fontFamily: "Arial" }}>
+            Método de los cuadrados medios
+          </Box>
+          <Stack spacing={2} direction="row" mb={2}>
+            <TextField
+              id="outlined-basic"
+              label="Semilla"
+              variant="outlined"
+              onChange={(event) => {
+                setSeed(event.target.value);
+              }}
+            />
+            <TextField
+              id="outlined-basic"
+              label="Tamaño"
+              variant="outlined"
+              onChange={(event) => {
+                setSize(event.target.value);
+              }}
+            />
+            <Button
+              variant="contained"
+              onClick={() => {
+                setMetodos(MetodosCuadrados(parseInt(size), parseInt(seed)));
+              }}
+            >
+              Calcular
+            </Button>
+          </Stack>
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Semilla</TableCell>
+                  <TableCell>Generador</TableCell>
+                  <TableCell>Numero Aleatorio</TableCell>
+                  <TableCell>Ri</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {metodos.map((metodo) => (
+                  <TableRow
+                    key={metodo[0]}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell>{metodo[0]}</TableCell>
+                    <TableCell>{metodo[1]}</TableCell>
+                    <TableCell>{metodo[2]}</TableCell>
+                    <TableCell>{metodo[3]}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Box>
+      </Paper>
+    </ThemeProvider>
+  );
+}

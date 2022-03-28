@@ -1,163 +1,141 @@
 import * as React from "react";
-import Container from "@mui/material/Container";
-import Box from "@mui/material/Box";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
+import { createTheme } from "@mui/material/styles";
+import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Link from "@mui/material/Link";
+import ResponsiveAppBar from "../components/navbar";
+import { ThemeProvider } from "@emotion/react";
 
-function MetodosCuadrados(size, seed) {
-  let newSeed = seed;
-  let values = [];
-  let temp = [];
-  for (let i = 0; i < size; i++) {
-    temp.push(newSeed);
-    newSeed = Math.pow(newSeed, 2);
-    temp.push(newSeed);
-    if (newSeed.toString().length === 8) {
-      newSeed = parseInt(newSeed.toString().substring(2, 6));
-      temp.push(newSeed);
-      temp.push(newSeed / 10000);
-      values.push(temp);
-      temp = [];
-    } else {
-      newSeed = parseInt(newSeed.toString().substring(1, 5));
-      temp.push(newSeed);
-      temp.push(newSeed / 10000);
-      values.push(temp);
-      temp = [];
-    }
-  }
-  return values;
-}
+const theme = createTheme({
+  palette: {
+    mode: "dark",
+  },
+});
 
-function CongruencialLineal(seed, multiplier, increment, module, size) {
-  let newSeed = seed;
-  let values = [];
-  let temp = [];
-  for (let i = 0; i < size; i++) {
-    temp.push(newSeed);
-    newSeed = (multiplier * newSeed + increment) % module;
-    temp.push(newSeed);
-    temp.push(newSeed / module);
-    values.push(temp);
-    temp = [];
-  }
-  return values;
-}
-
-function CongruencialMixto(seed, multiplier, increment, module, size) {
-  let newSeed = seed;
-  let values = [];
-  let temp = [];
-  let condition1 = false;
-  let condition2 = false;
-  let condition3 = false;
-  if (gcd(increment, module) === 1) {
-    condition1 = true;
-  }
-
-  if (module % (module / 2) === 0 && (multiplier - 1) % (module / 2) === 0) {
-    condition2 = true;
-  }
-
-  if (module % 4 === 0 && (multiplier - 1) % 4 === 0) {
-    condition3 = true;
-  }
-  if (condition1 && condition2 && condition3) {
-    for (let i = 0; i < size; i++) {
-      temp.push(newSeed);
-      newSeed = (multiplier * newSeed + increment) % module;
-      temp.push(newSeed);
-      temp.push(newSeed / module);
-      values.push(temp);
-      temp = [];
-    }
-    return values;
-  } else {
-    return "Not possible";
-  }
-}
-
-function gcd(a, b) {
-  if (b === 0) return a;
-  return gcd(b, a % b);
-}
-
-//CongruencialLineal(4, 5, 7, 8, 5)
-//console.log((5 - 1) % 4)
-
-export default function Index() {
-  const [metodos, setMetodos] = React.useState([[]]);
-  const [seed, setSeed] = React.useState(0);
-  const [size, setSize] = React.useState(0);
-  const handleSeed = (event) => {
-    setSeed(event.target.value);
-  };
-  const handleSize = (event) => {
-    setSize(event.target.value);
-  };
-
+export default function ComplexGrid() {
   return (
-    <Container maxWidth="lg">
-      <Box sx={{ my: 4 }}>
-        <Box sx={{ mb: 2, fontSize: "h4.fontSize", fontFamily: "Arial" }}>
-          Método de los cuadrados medios
-        </Box>
-        <Stack spacing={2} direction="row">
-          <TextField
-            id="outlined-basic"
-            label="Seed"
-            variant="outlined"
-            onChange={handleSeed}
-          />
-          <TextField
-            id="outlined-basic"
-            label="Size"
-            variant="outlined"
-            onChange={handleSize}
-          />
-          <Button
-            variant="contained"
-            onClick={() => {
-              setMetodos(MetodosCuadrados(size, seed));
-            }}
-          >
-            Contained
-          </Button>
-        </Stack>
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Semilla</TableCell>
-                <TableCell>Generador</TableCell>
-                <TableCell>Numero Aleatorio</TableCell>
-                <TableCell>Ri</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {metodos.map((metodo) => (
-                <TableRow
-                  key={metodo[0]}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell>{metodo[0]}</TableCell>
-                  <TableCell>{metodo[1]}</TableCell>
-                  <TableCell>{metodo[2]}</TableCell>
-                  <TableCell>{metodo[3]}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Box>
-    </Container>
+    <ThemeProvider theme={theme}>
+      <Paper
+        sx={{
+          p: 2,
+          margin: "auto",
+          maxWidth: "100%",
+          flexGrow: 1,
+          justifyContent: "center",
+          backgroundColor: (darkTheme) =>
+            darkTheme.palette.mode === "dark" ? "#1A2027" : "#fff",
+        }}
+      >
+        <ResponsiveAppBar />
+        <Grid
+          container
+          spacing={2}
+          rowSpacing={5}
+          columnSpacing={{ xs: 5, sm: 5, md: 5 }}
+        >
+          <Grid item xs={6} container textAlign="center">
+            <Grid item xs container direction="column" spacing={2}>
+              <Grid item xs>
+                <Typography gutterBottom variant="subtitle1" component="div">
+                  Método de los Centros Cuadrados
+                </Typography>
+                <Typography variant="body2" gutterBottom>
+                  Argumentos a tomar:
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Semilla, Tamaño
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography sx={{ cursor: "pointer" }} variant="body2">
+                  <Link href="/metodosCuadrados">Calcular</Link>
+                </Typography>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item xs={6} container textAlign="center">
+            <Grid item xs container direction="column" spacing={2}>
+              <Grid item xs>
+                <Typography gutterBottom variant="subtitle1" component="div">
+                  Método Congruencial Lineal
+                </Typography>
+                <Typography variant="body2" gutterBottom>
+                  Argumentos a tomar:
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Semilla, Tamaño, Multiplicador, Incremento, Modulo
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography sx={{ cursor: "pointer" }} variant="body2">
+                  <Link href="/metodoCongruencialLineal">Calcular</Link>
+                </Typography>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item xs={6} container textAlign="center">
+            <Grid item xs container direction="column" spacing={2}>
+              <Grid item xs>
+                <Typography gutterBottom variant="subtitle1" component="div">
+                  Metodo Congruencial Mixto
+                </Typography>
+                <Typography variant="body2" gutterBottom>
+                  Argumentos a tomar:
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Semilla, Tamaño, Multiplicador, Incremento, Modulo
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography sx={{ cursor: "pointer" }} variant="body2">
+                  <Link href="/metodoCongruencialMixto">Calcular</Link>
+                </Typography>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item xs={6} container textAlign="center">
+            <Grid item xs container direction="column" spacing={2}>
+              <Grid item xs>
+                <Typography gutterBottom variant="subtitle1" component="div">
+                  Generador Multiplicativo
+                </Typography>
+                <Typography variant="body2" gutterBottom>
+                  Argumentos a tomar:
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Tamaño
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography sx={{ cursor: "pointer" }} variant="body2">
+                  Calcular
+                </Typography>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item xs={12} container textAlign="center">
+            <Grid item xs container direction="column" spacing={2}>
+              <Grid item xs>
+                <Typography gutterBottom variant="subtitle1" component="div">
+                  Método Congruencial Lineal Combinado
+                </Typography>
+                <Typography variant="body2" gutterBottom>
+                  Argumentos a tomar:
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Tamaño
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography sx={{ cursor: "pointer" }} variant="body2">
+                  Calcular
+                </Typography>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Paper>
+    </ThemeProvider>
   );
 }
