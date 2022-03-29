@@ -64,7 +64,7 @@ export default function ComplexGrid() {
                   Argumentos a tomar:
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Semilla, Tamaño, Multiplicador, Incremento, Modulo
+                  Semilla, Tamaño, Multiplicador, Incremento, Módulo
                 </Typography>
               </Grid>
               <Grid item>
@@ -84,7 +84,7 @@ export default function ComplexGrid() {
                   Argumentos a tomar:
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Semilla, Tamaño, Multiplicador, Incremento, Modulo
+                  Semilla, Tamaño, Multiplicador, Incremento, Módulo
                 </Typography>
               </Grid>
               <Grid item>
@@ -98,18 +98,18 @@ export default function ComplexGrid() {
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1" component="div">
-                  Generador Multiplicativo
+                  Método Congruencial Multiplicativo
                 </Typography>
                 <Typography variant="body2" gutterBottom>
                   Argumentos a tomar:
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Tamaño
+                  Semilla, Tamaño, Multiplicador, Módulo
                 </Typography>
               </Grid>
               <Grid item>
                 <Typography sx={{ cursor: "pointer" }} variant="body2">
-                  Calcular
+                  <Link href="/generadorMultiplicativo">Calcular</Link>
                 </Typography>
               </Grid>
             </Grid>

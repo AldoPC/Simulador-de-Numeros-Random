@@ -81,7 +81,7 @@ export default function CongruenciaMixto() {
           <Box sx={{ mb: 2, fontSize: "h4.fontSize", fontFamily: "Arial" }}>
             Método Congruencial Mixto
           </Box>
-          <Stack spacing={2} direction="row" mb={2}>
+          <Stack spacing={2} direction={{ xs: "column", sm: "row" }} mb={2}>
             <TextField
               id="outlined-basic"
               label="Semilla"
