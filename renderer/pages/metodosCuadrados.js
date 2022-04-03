@@ -14,31 +14,6 @@ import ResponsiveAppBar from "../components/navbar";
 import { ThemeProvider } from "@emotion/react";
 import { createTheme } from "@mui/material/styles";
 
-function MetodosCuadrados(size, seed) {
-  let newSeed = seed;
-  let values = [];
-  let temp = [];
-  for (let i = 0; i < size; i++) {
-    temp.push(newSeed);
-    newSeed = Math.pow(newSeed, 2);
-    temp.push(newSeed);
-    if (newSeed.toString().length === 8) {
-      newSeed = parseInt(newSeed.toString().substring(2, 6));
-      temp.push(newSeed);
-      temp.push(newSeed / 10000);
-      values.push(temp);
-      temp = [];
-    } else {
-      newSeed = parseInt(newSeed.toString().substring(1, 5));
-      temp.push(newSeed);
-      temp.push(newSeed / 10000);
-      values.push(temp);
-      temp = [];
-    }
-  }
-  return values;
-}
-
 const theme = createTheme({
   palette: {
     mode: "dark",
@@ -49,6 +24,45 @@ export default function MetodoCentroCuadrado() {
   const [metodos, setMetodos] = React.useState([[]]);
   const [seed, setSeed] = React.useState(0);
   const [size, setSize] = React.useState(0);
+
+  function MetodosCuadrados(size, seed) {
+    let seedStr = seed.toString();
+    if (seedStr.toString().length < 4) {
+      seedStr = seedStr.padStart(4, "0");
+    }
+    let values = [];
+
+    for (let i = 0; i < size; i++) {
+      let temp = [];
+      // Base case
+      if (seedStr === "0000") {
+        temp.push(seedStr);
+        temp.push(seedStr);
+        temp.push(seedStr);
+        temp.push(0);
+        values.push(temp);
+        break;
+      }
+
+      temp.push(seedStr);
+
+      let genNum = Math.pow(parseInt(seedStr), 2).toString();
+      if (genNum.toString().length < 8) {
+        genNum = genNum.padStart(8, "0");
+      }
+      temp.push(genNum);
+
+      let randNum = genNum.substring(2, 6);
+      temp.push(randNum);
+
+      let RiVal = parseInt(randNum) / 10000;
+      temp.push(RiVal);
+
+      seedStr = genNum.substring(2, 6);
+      values.push(temp);
+    }
+    return values;
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -102,17 +116,23 @@ export default function MetodoCentroCuadrado() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {metodos.map((metodo) => (
-                  <TableRow
-                    key={metodo[0]}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell>{metodo[0]}</TableCell>
-                    <TableCell>{metodo[1]}</TableCell>
-                    <TableCell>{metodo[2]}</TableCell>
-                    <TableCell>{metodo[3]}</TableCell>
-                  </TableRow>
-                ))}
+                {metodos[0] !== "undefined" &&
+                  metodos[0].length > 0 &&
+                  metodos.map((metodo) => (
+                    <>
+                      <TableRow
+                        key={metodo[0]}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
+                      >
+                        <TableCell>{metodo[0]}</TableCell>
+                        <TableCell>{metodo[1]}</TableCell>
+                        <TableCell>{metodo[2]}</TableCell>
+                        <TableCell>{metodo[3]}</TableCell>
+                      </TableRow>
+                    </>
+                  ))}
               </TableBody>
             </Table>
           </TableContainer>
