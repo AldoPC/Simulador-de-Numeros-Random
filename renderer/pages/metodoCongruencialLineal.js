@@ -14,21 +14,6 @@ import ResponsiveAppBar from "../components/navbar";
 import { ThemeProvider } from "@emotion/react";
 import { createTheme } from "@mui/material/styles";
 
-function CongruencialLineal(seed, multiplier, increment, module, size) {
-  let newSeed = seed;
-  let values = [];
-  let temp = [];
-  for (let i = 0; i < size; i++) {
-    temp.push(newSeed);
-    newSeed = (multiplier * newSeed + increment) % module;
-    temp.push(newSeed);
-    temp.push(newSeed / module);
-    values.push(temp);
-    temp = [];
-  }
-  return values;
-}
-
 const theme = createTheme({
   palette: {
     mode: "dark",
@@ -42,6 +27,22 @@ export default function CongruenciaLineal() {
   const [multiplier, setMultiplier] = React.useState(0);
   const [increment, setIncrement] = React.useState(0);
   const [module, setModule] = React.useState(0);
+
+  function CongruencialLineal(seed, multiplier, increment, module, size) {
+    let newSeed = seed;
+    let values = [];
+    let temp = [];
+    for (let i = 0; i < size; i++) {
+      temp.push(newSeed);
+      newSeed = (multiplier * newSeed + increment) % module;
+      temp.push(newSeed);
+      temp.push(newSeed / module);
+      values.push(temp);
+      temp = [];
+    }
+    return values;
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <Paper
@@ -126,14 +127,16 @@ export default function CongruenciaLineal() {
               </TableHead>
               <TableBody>
                 {metodos.map((metodo) => (
-                  <TableRow
-                    key={metodo[0]}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell>{metodo[0]}</TableCell>
-                    <TableCell>{metodo[1]}</TableCell>
-                    <TableCell>{metodo[2]}</TableCell>
-                  </TableRow>
+                  <>
+                    <TableRow
+                      key={metodo[0]}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell>{metodo[0]}</TableCell>
+                      <TableCell>{metodo[1]}</TableCell>
+                      <TableCell>{metodo[2]}</TableCell>
+                    </TableRow>
+                  </>
                 ))}
               </TableBody>
             </Table>

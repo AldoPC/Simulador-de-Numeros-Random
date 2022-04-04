@@ -50,7 +50,7 @@ const theme = createTheme({
   },
 });
 
-export default function CongruenciaMixto() {
+export default function CongruencialMultiplicativo() {
   const [metodos, setMetodos] = React.useState([[]]);
   const [seed, setSeed] = React.useState(0);
   const [size, setSize] = React.useState(0);
@@ -131,14 +131,16 @@ export default function CongruenciaMixto() {
               </TableHead>
               <TableBody>
                 {metodos.map((metodo) => (
-                  <TableRow
-                    key={metodo[0]}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell>{metodo[0]}</TableCell>
-                    <TableCell>{metodo[1]}</TableCell>
-                    <TableCell>{metodo[2]}</TableCell>
-                  </TableRow>
+                  <>
+                    <TableRow
+                      key={metodo[0]}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell>{metodo[0]}</TableCell>
+                      <TableCell>{metodo[1]}</TableCell>
+                      <TableCell>{metodo[2]}</TableCell>
+                    </TableRow>
+                  </>
                 ))}
               </TableBody>
             </Table>

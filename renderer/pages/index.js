@@ -49,7 +49,7 @@ export default function ComplexGrid() {
               </Grid>
               <Grid item>
                 <Typography sx={{ cursor: "pointer" }} variant="body2">
-                  <Link href="/metodosCuadrados">Calcular</Link>
+                  <Link href="/metodoCuadrados">Calcular</Link>
                 </Typography>
               </Grid>
             </Grid>
@@ -109,7 +109,7 @@ export default function ComplexGrid() {
               </Grid>
               <Grid item>
                 <Typography sx={{ cursor: "pointer" }} variant="body2">
-                  <Link href="/generadorMultiplicativo">Calcular</Link>
+                  <Link href="/metodoCongruencialMultiplicativo">Calcular</Link>
                 </Typography>
               </Grid>
             </Grid>
@@ -124,12 +124,12 @@ export default function ComplexGrid() {
                   Argumentos a tomar:
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Tamaño
+                  Cantidad funciones, Semilla, Tamaño, Multiplicador, Módulo
                 </Typography>
               </Grid>
               <Grid item>
                 <Typography sx={{ cursor: "pointer" }} variant="body2">
-                  Calcular
+                  <Link href="/metodoCongruencialCombinado">Calcular</Link>
                 </Typography>
               </Grid>
             </Grid>

@@ -14,58 +14,59 @@ import ResponsiveAppBar from "../components/navbar";
 import { ThemeProvider } from "@emotion/react";
 import { createTheme } from "@mui/material/styles";
 
-function CongruencialMixto(seed, multiplier, increment, module, size) {
-  let newSeed = seed;
-  let values = [];
-  let temp = [];
-  let condition1 = false;
-  let condition2 = false;
-  let condition3 = false;
-  if (gcd(increment, module) === 1) {
-    condition1 = true;
-  }
-
-  if (module % (module / 2) === 0 && (multiplier - 1) % (module / 2) === 0) {
-    condition2 = true;
-  }
-
-  if (module % 4 === 0 && (multiplier - 1) % 4 === 0) {
-    condition3 = true;
-  }
-  if (condition1 && condition2 && condition3) {
-    for (let i = 0; i < size; i++) {
-      temp.push(newSeed);
-      newSeed = (multiplier * newSeed + increment) % module;
-      temp.push(newSeed);
-      temp.push(newSeed / module);
-      values.push(temp);
-      temp = [];
-    }
-    return values;
-  } else {
-    alert("No cumple la validación del Teorema de HULL-DOBELL.");
-    return [];
-  }
-}
-
-function gcd(a, b) {
-  if (b === 0) return a;
-  return gcd(b, a % b);
-}
-
 const theme = createTheme({
   palette: {
     mode: "dark",
   },
 });
 
-export default function CongruenciaMixto() {
+export default function CongruencialMixto() {
   const [metodos, setMetodos] = React.useState([[]]);
   const [seed, setSeed] = React.useState(0);
   const [size, setSize] = React.useState(0);
   const [multiplier, setMultiplier] = React.useState(0);
   const [increment, setIncrement] = React.useState(0);
   const [module, setModule] = React.useState(0);
+
+  function CongruencialMixto(seed, multiplier, increment, module, size) {
+    let newSeed = seed;
+    let values = [];
+    let temp = [];
+    let condition1 = false;
+    let condition2 = false;
+    let condition3 = false;
+    if (gcd(increment, module) === 1) {
+      condition1 = true;
+    }
+
+    if (module % (module / 2) === 0 && (multiplier - 1) % (module / 2) === 0) {
+      condition2 = true;
+    }
+
+    if (module % 4 === 0 && (multiplier - 1) % 4 === 0) {
+      condition3 = true;
+    }
+    if (condition1 && condition2 && condition3) {
+      for (let i = 0; i < size; i++) {
+        temp.push(newSeed);
+        newSeed = (multiplier * newSeed + increment) % module;
+        temp.push(newSeed);
+        temp.push(newSeed / module);
+        values.push(temp);
+        temp = [];
+      }
+      return values;
+    } else {
+      alert("No cumple la validación del Teorema de HULL-DOBELL.");
+      return [];
+    }
+  }
+
+  function gcd(a, b) {
+    if (b === 0) return a;
+    return gcd(b, a % b);
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <Paper
@@ -150,14 +151,16 @@ export default function CongruenciaMixto() {
               </TableHead>
               <TableBody>
                 {metodos.map((metodo) => (
-                  <TableRow
-                    key={metodo[0]}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell>{metodo[0]}</TableCell>
-                    <TableCell>{metodo[1]}</TableCell>
-                    <TableCell>{metodo[2]}</TableCell>
-                  </TableRow>
+                  <>
+                    <TableRow
+                      key={metodo[0]}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell>{metodo[0]}</TableCell>
+                      <TableCell>{metodo[1]}</TableCell>
+                      <TableCell>{metodo[2]}</TableCell>
+                    </TableRow>
+                  </>
                 ))}
               </TableBody>
             </Table>
