@@ -22,13 +22,24 @@ const theme = createTheme({
 
 const CongruencialCombinado = () => {
   const [sizeFunc, setSizeFunc] = React.useState();
+  const [modFunc, setModFunc] = React.useState();
   const [indexFunc, setIndexFunc] = React.useState([]);
   const [metodos, setMetodos] = React.useState([[]]);
   const [seed, setSeed] = React.useState([]);
   const [multiplier, setMultiplier] = React.useState([]);
   const [module, setModule] = React.useState([]);
 
-  const metodoCongruencialCombinado = (sizeFunc, seed, multiplier, module) => {
+  Number.prototype.mod = function (b) {
+    return ((this % b) + b) % b;
+  };
+
+  const metodoCongruencialCombinado = (
+    sizeFunc,
+    modFunc,
+    seed,
+    multiplier,
+    module
+  ) => {
     let periodNum = 1;
     for (let i = 0; i < sizeFunc; ++i) {
       periodNum *= module[i] - 1;
@@ -36,43 +47,55 @@ const CongruencialCombinado = () => {
     let periodDen = Math.pow(2, sizeFunc - 1);
     let period = parseInt(periodNum / periodDen);
     let values = [];
+    let seeds = seed;
 
     // TODO: Arreglar usando valores previos
     for (let k = 0; k < period; ++k) {
       let valuesIt = [];
+      let tempSeeds = [];
+      if (k === 0) {
+        tempSeeds = seeds;
+      } else {
+        for (let i = 0; i < sizeFunc; ++i) {
+          tempSeeds.push(seeds[seeds.length - sizeFunc + i]);
+        }
+      }
+
       for (let i = 0; i < sizeFunc; ++i) {
         let condition1 = false;
         let condition2 = false;
-        if (seed[i] >= 0 && multiplier[i] >= 0 && module[i] >= 0) {
+        if (tempSeeds[i] >= 0 && multiplier[i] >= 0 && module[i] >= 0) {
           condition1 = true;
         }
-        if (module[i] > multiplier[i] && module[i] > seed[i]) {
+        if (module[i] > multiplier[i] && module[i] > tempSeeds[i]) {
           condition2 = true;
         }
         if (condition1 && condition2) {
-          let newSeed = (multiplier[i] * seed[i]) % module[i];
+          let newSeed = (multiplier[i] * tempSeeds[i]).mod(module[i]);
+          seeds.push(newSeed);
           valuesIt.push(newSeed);
         }
       }
       let condSum = 1;
       let tempSum = 0;
-      for (let i = 0; i < sizeFunc; ++i) {
-        tempSum += condSum * valuesIt[i];
-        condSum *= -1;
+
+      if (k === 0) {
+        for (let i = 0; i < sizeFunc; ++i) {
+          tempSum += condSum * seeds[i];
+          condSum *= -1;
+        }
+      } else {
+        for (let i = 0; i < sizeFunc; ++i) {
+          tempSum += condSum * seeds[seeds.length - sizeFunc * 2 + i];
+          condSum *= -1;
+        }
       }
-      let congVal = tempSum % (module[0] - 1);
-      valuesIt.push(congVal);
+      valuesIt.push(tempSum.mod(modFunc));
       values.push(valuesIt);
     }
 
     return values;
   };
-  console.log("seed" + seed);
-  console.log("multiplier" + multiplier);
-  console.log("module" + module);
-  console.log("sizeFunc" + sizeFunc);
-  console.log("indexFunc" + indexFunc);
-  console.log("metodos" + metodos);
   return (
     <ThemeProvider theme={theme}>
       <Paper
@@ -96,6 +119,19 @@ const CongruencialCombinado = () => {
               type="number"
               onChange={(event) => {
                 setSizeFunc(
+                  event.target.value !== "" && event.target.value !== undefined
+                    ? parseInt(event.target.value)
+                    : 0
+                );
+              }}
+            />
+            <TextField
+              id="outlined-basic"
+              label="Módulo Final"
+              variant="outlined"
+              type="number"
+              onChange={(event) => {
+                setModFunc(
                   event.target.value !== "" && event.target.value !== undefined
                     ? parseInt(event.target.value)
                     : 0
@@ -168,6 +204,7 @@ const CongruencialCombinado = () => {
                 setMetodos(
                   metodoCongruencialCombinado(
                     sizeFunc,
+                    modFunc,
                     seed,
                     multiplier,
                     module

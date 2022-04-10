@@ -84,6 +84,7 @@ export default function MetodoCentroCuadrado() {
               id="outlined-basic"
               label="Semilla"
               variant="outlined"
+              type="number"
               onChange={(event) => {
                 setSeed(event.target.value);
               }}
@@ -92,6 +93,7 @@ export default function MetodoCentroCuadrado() {
               id="outlined-basic"
               label="Tamaño"
               variant="outlined"
+              type="number"
               onChange={(event) => {
                 setSize(event.target.value);
               }}

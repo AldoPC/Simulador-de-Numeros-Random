@@ -87,6 +87,7 @@ export default function CongruencialMixto() {
               id="outlined-basic"
               label="Semilla"
               variant="outlined"
+              type="number"
               onChange={(event) => {
                 setSeed(event.target.value);
               }}
@@ -95,6 +96,7 @@ export default function CongruencialMixto() {
               id="outlined-basic"
               label="Multiplicador"
               variant="outlined"
+              type="number"
               onChange={(event) => {
                 setMultiplier(event.target.value);
               }}
@@ -103,6 +105,7 @@ export default function CongruencialMixto() {
               id="outlined-basic"
               label="Incremento"
               variant="outlined"
+              type="number"
               onChange={(event) => {
                 setIncrement(event.target.value);
               }}
@@ -111,6 +114,7 @@ export default function CongruencialMixto() {
               id="outlined-basic"
               label="Módulo"
               variant="outlined"
+              type="number"
               onChange={(event) => {
                 setModule(event.target.value);
               }}
@@ -119,6 +123,7 @@ export default function CongruencialMixto() {
               id="outlined-basic"
               label="Tamaño"
               variant="outlined"
+              type="number"
               onChange={(event) => {
                 setSize(event.target.value);
               }}
