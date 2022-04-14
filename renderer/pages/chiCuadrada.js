@@ -11,6 +11,8 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 const ChiCuadrada = ({ nums, alfa }) => {
+  // console.log(nums);
+  // console.log("HERE");
   const chi_square = [
     [
       0, 0.995, 0.99, 0.975, 0.95, 0.9, 0.5, 0.2, 0.1, 0.05, 0.025, 0.02, 0.01,
@@ -225,7 +227,7 @@ const ChiCuadrada = ({ nums, alfa }) => {
   const range = maxNum - minNum;
   const K = Math.floor(1 + 3.322 * Math.log10(N));
 
-  const classRange = +(range / K).toFixed(1);
+  const classRange = range / K;
 
   // Uniform distribution
   const a = minNum;
@@ -256,29 +258,26 @@ const ChiCuadrada = ({ nums, alfa }) => {
   for (let i = 0; i < classNums.length; ++i) {
     foiObserved.push(classNums[i].length);
   }
-
+  console.log("HERE");
   let updatedFoiObserved = [];
   let updatedClassLeftLimit = [];
   let updatedClassRightLimit = [];
-  let didMerge = false;
   for (let i = 0; i < foiObserved.length; ++i) {
-    if (foiObserved[i] < 5 && i < foiObserved.length - 1) {
-      updatedFoiObserved.push(foiObserved[i] + foiObserved[i + 1]);
-      updatedClassLeftLimit.push(classLeftLimits[i]);
-      updatedClassRightLimit.push(classRightLimits[i + 1]);
-      didMerge = true;
-    } else if (didMerge) {
-      didMerge = false;
-      continue;
-    } else if (!didMerge && foiObserved[i] >= 5) {
-      updatedFoiObserved.push(foiObserved[i]);
-    } else if (foiObserved[i] < 5 && i == foiObserved.length - 1) {
-      let temp = updatedFoiObserved.pop() + foiObserved[i];
-      updatedFoiObserved.push(temp);
-      didMerge = true;
-      updatedClassRightLimit.pop();
-      updatedClassRightLimit.push(classRightLimits[i]);
+    let countNums = foiObserved[i];
+
+    let itLeft = i;
+    let itRight = i;
+
+    while (itRight < foiObserved.length - 1 && countNums < 5) {
+      ++itRight;
+      countNums += foiObserved[itRight];
     }
+
+    updatedFoiObserved.push(countNums);
+    updatedClassLeftLimit.push(classLeftLimits[itLeft]);
+    updatedClassRightLimit.push(classRightLimits[itRight]);
+
+    i = itRight;
   }
 
   // INTEGRAL (1 / b - a) dx
@@ -324,6 +323,10 @@ const ChiCuadrada = ({ nums, alfa }) => {
   console.log(
     "\nK",
     K,
+    "\na",
+    a,
+    "\nb",
+    b,
     "\nclassRange",
     classRange,
     "\nclassLeftLimits",
