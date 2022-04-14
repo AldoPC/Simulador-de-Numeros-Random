@@ -13,6 +13,7 @@ import Button from "@mui/material/Button";
 import ResponsiveAppBar from "../components/navbar";
 import { ThemeProvider } from "@emotion/react";
 import { createTheme } from "@mui/material/styles";
+import ChiCuadrada from "./chiCuadrada";
 
 const theme = createTheme({
   palette: {
@@ -121,6 +122,7 @@ export default function CongruenciaLineal() {
               Calcular
             </Button>
           </Stack>
+          <ChiCuadrada nums={[0.4, 0.1, 0.5, 0.8, 0.9, 0.2]} alfa={0.05} />
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>

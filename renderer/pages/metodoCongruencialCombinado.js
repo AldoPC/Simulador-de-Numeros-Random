@@ -49,7 +49,6 @@ const CongruencialCombinado = () => {
     let values = [];
     let seeds = seed;
 
-    // TODO: Arreglar usando valores previos
     for (let k = 0; k < period; ++k) {
       let valuesIt = [];
       let tempSeeds = [];
