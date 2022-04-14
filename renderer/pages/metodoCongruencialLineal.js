@@ -23,6 +23,7 @@ const theme = createTheme({
 
 export default function CongruenciaLineal() {
   const [metodos, setMetodos] = React.useState([[]]);
+  const [chi_cuadrada, setChi_Cuadrada] = React.useState([]);
   const [seed, setSeed] = React.useState(0);
   const [size, setSize] = React.useState(0);
   const [multiplier, setMultiplier] = React.useState(0);
@@ -42,6 +43,15 @@ export default function CongruenciaLineal() {
       temp = [];
     }
     return values;
+  }
+
+  function updateValues() {
+    let temp = [];
+    for (let i = 0; i < size; i++) {
+      temp.push(metodos[i][2]);
+    }
+    console.log(temp);
+    return temp;
   }
 
   return (
@@ -121,8 +131,15 @@ export default function CongruenciaLineal() {
             >
               Calcular
             </Button>
+            <Button
+              variant="contained"
+              onClick={() => {
+                setChi_Cuadrada(updateValues);
+              }}
+            >
+              Calcular Chi-Cuadrada
+            </Button>
           </Stack>
-          <ChiCuadrada nums={[0.4, 0.1, 0.5, 0.8, 0.9, 0.2]} alfa={0.05} />
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
@@ -148,6 +165,8 @@ export default function CongruenciaLineal() {
               </TableBody>
             </Table>
           </TableContainer>
+          <br></br>
+          <ChiCuadrada nums={chi_cuadrada} alfa={0.05} />
         </Box>
       </Paper>
     </ThemeProvider>
