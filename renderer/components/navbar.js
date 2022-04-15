@@ -15,11 +15,11 @@ import Link from "next/link";
 import CssBaseline from "@mui/material/CssBaseline";
 
 const pages = [
-  "Método de los cuadrados medios ",
-  "Método de Congruencia lineal",
-  "Método Congruencial mixto",
-  "Generador Multiplicativo",
-  "Método Congruencial lineal Combinado",
+  ["Método de los cuadrados medios ", "/metodoCuadrados"],
+  ["Método de Congruencia lineal", "/metodoCongruencialLineal"],
+  ["Método Congruencial mixto", "/metodoCongruencialMixto"],
+  ["Generador Multiplicativo", "/metodoCongruencialMultiplicativo"],
+  ["Método Congruencial lineal Combinado", "/metodoCongruencialCombinado"],
 ];
 const settings = [
   "Aldo Ponce",
@@ -92,8 +92,10 @@ const ResponsiveAppBar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page[0]} onClick={handleCloseNavMenu}>
+                  <Link href={page[1]}>
+                    <Typography textAlign="center">{page[0]}</Typography>
+                  </Link>
                 </MenuItem>
               ))}
             </Menu>
@@ -110,13 +112,15 @@ const ResponsiveAppBar = () => {
           </Link>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
+              <Link href={page[1]}>
+                <Button
+                  key={page[0]}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  {page[0]}
+                </Button>
+              </Link>
             ))}
           </Box>
 

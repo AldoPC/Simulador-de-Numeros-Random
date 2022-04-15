@@ -14,6 +14,7 @@
 
 # production
 /dist
+.pytest_cache
 
 # misc
 .DS_Store

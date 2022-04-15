@@ -14,6 +14,8 @@ import ResponsiveAppBar from "../components/navbar";
 import { ThemeProvider } from "@emotion/react";
 import { createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import ChiCuadrada from "./chiCuadrada";
+import Smirnov from "./smirnov";
 
 const theme = createTheme({
   palette: {
@@ -28,6 +30,8 @@ export default function CongruencialMixto() {
   const [multiplier, setMultiplier] = React.useState(0);
   const [increment, setIncrement] = React.useState(0);
   const [module, setModule] = React.useState(0);
+  const [numbersToValidate, setNumbersToValidate] = React.useState([]);
+  const [alfa, setAlfa] = React.useState(0);
 
   function CongruencialMixto(seed, multiplier, increment, module, size) {
     let newSeed = seed;
@@ -66,6 +70,15 @@ export default function CongruencialMixto() {
   function gcd(a, b) {
     if (b === 0) return a;
     return gcd(b, a % b);
+  }
+
+  function updateValues() {
+    let temp = [];
+    for (let i = 0; i < size; i++) {
+      temp.push(metodos[i][3]);
+    }
+    console.log(temp);
+    return temp;
   }
 
   return (
@@ -146,6 +159,14 @@ export default function CongruencialMixto() {
             >
               Calcular
             </Button>
+            <Button
+              variant="contained"
+              onClick={() => {
+                setNumbersToValidate(updateValues);
+              }}
+            >
+              Pruebas de bondad
+            </Button>
           </Stack>
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -172,6 +193,10 @@ export default function CongruencialMixto() {
               </TableBody>
             </Table>
           </TableContainer>
+          <br></br>
+          <ChiCuadrada nums={numbersToValidate} alfa={alfa} />
+          <br></br>
+          <Smirnov nums={numbersToValidate} alfa={alfa} />
         </Box>
       </Paper>
     </ThemeProvider>
