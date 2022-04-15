@@ -113,7 +113,9 @@ const Smirnov = ({ nums, alfa }) => {
     ],
     [50, 0.1484, 0.16959, 0.18841, 0.21068, 0.22604, 0.24039, 0.25809, 0.27067],
   ];
-
+  if (!nums) {
+    nums = [0];
+  }
   nums.sort();
   const N = nums.length;
   const maxNum = Math.max(...nums);

@@ -6,8 +6,8 @@
     "clean": "rimraf dist renderer/.next renderer/out",
     "start": "electron .",
     "build": "next build renderer && next export renderer",
-    "pack-app": "npm run build && electron-builder --dir",
-    "dist": "npm run build && electron-builder",
+    "pack-app": "yarn run build && electron-builder --dir",
+    "dist": "yarn run build && electron-builder",
     "dev": "next dev -H 0.0.0.0"
   },
   "build": {

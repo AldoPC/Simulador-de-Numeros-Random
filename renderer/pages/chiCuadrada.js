@@ -217,7 +217,9 @@ const ChiCuadrada = ({ nums, alfa }) => {
       67.505, 71.42, 72.613, 76.154, 79.49, 83.657, 86.661,
     ],
   ];
-
+  if (!nums) {
+    nums = [0];
+  }
   nums.sort();
   const N = nums.length;
   const maxNum = Math.max(...nums);
