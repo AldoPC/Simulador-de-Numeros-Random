@@ -4,7 +4,7 @@
   "description": "Proyecto de metodos",
   "author": "Team",
   "private": true,
-  "productName": "ElectronNext",
+  "productName": "Simulador de Números Random",
   "main": "main/index.js",
   "scripts": {
     "clean": "rimraf dist renderer/.next renderer/out",
