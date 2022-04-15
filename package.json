@@ -1,4 +1,8 @@
 {
+  "name": "metodos",
+  "version": "1.0.0",
+  "description": "Proyecto de metodos",
+  "author": "Team",
   "private": true,
   "productName": "ElectronNext",
   "main": "main/index.js",
