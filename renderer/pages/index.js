@@ -49,9 +49,6 @@ export default function ComplexGrid() {
                 <Typography variant="body2" color="text.secondary">
                   Semilla, Tamaño
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Cuenta con pruebas de bondad
-                </Typography>
               </Grid>
               <Grid item>
                 <Typography sx={{ cursor: "pointer" }} variant="body2">
@@ -94,6 +91,9 @@ export default function ComplexGrid() {
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   Semilla, Tamaño, Multiplicador, Incremento, Módulo
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Cuenta con pruebas de bondad
                 </Typography>
               </Grid>
               <Grid item>
