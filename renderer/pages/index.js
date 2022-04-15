@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import ResponsiveAppBar from "../components/navbar";
 import { ThemeProvider } from "@emotion/react";
+import CssBaseline from "@mui/material/CssBaseline";
 
 const theme = createTheme({
   palette: {
@@ -16,11 +17,12 @@ const theme = createTheme({
 export default function ComplexGrid() {
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <Paper
         sx={{
-          p: 2,
           margin: "auto",
           maxWidth: "100%",
+          minHeight: "100vh",
           flexGrow: 1,
           justifyContent: "center",
           backgroundColor: (darkTheme) =>
@@ -33,6 +35,7 @@ export default function ComplexGrid() {
           spacing={2}
           rowSpacing={5}
           columnSpacing={{ xs: 5, sm: 5, md: 5 }}
+          marginTop="auto"
         >
           <Grid item xs={6} container textAlign="center">
             <Grid item xs container direction="column" spacing={2}>
@@ -45,6 +48,9 @@ export default function ComplexGrid() {
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   Semilla, Tamaño
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Cuenta con pruebas de bondad
                 </Typography>
               </Grid>
               <Grid item>
@@ -65,6 +71,9 @@ export default function ComplexGrid() {
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   Semilla, Tamaño, Multiplicador, Incremento, Módulo
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Cuenta con pruebas de bondad
                 </Typography>
               </Grid>
               <Grid item>
@@ -105,6 +114,9 @@ export default function ComplexGrid() {
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   Semilla, Tamaño, Multiplicador, Módulo
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Cuenta con pruebas de bondad
                 </Typography>
               </Grid>
               <Grid item>

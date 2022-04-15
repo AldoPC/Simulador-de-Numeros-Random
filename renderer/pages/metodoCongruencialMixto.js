@@ -13,6 +13,7 @@ import Button from "@mui/material/Button";
 import ResponsiveAppBar from "../components/navbar";
 import { ThemeProvider } from "@emotion/react";
 import { createTheme } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
 
 const theme = createTheme({
   palette: {
@@ -69,16 +70,17 @@ export default function CongruencialMixto() {
 
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <Paper
         sx={{
-          p: 2,
           margin: "auto",
           maxWidth: "auto",
+          minHeight: "100vh",
           backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
         }}
       >
         <ResponsiveAppBar />
-        <Box sx={{ my: 4 }}>
+        <Box sx={{ my: 4 }} pl={2} pr={2}>
           <Box sx={{ mb: 2, fontSize: "h4.fontSize", fontFamily: "Arial" }}>
             Método Congruencial Mixto
           </Box>

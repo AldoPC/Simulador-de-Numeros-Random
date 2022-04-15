@@ -12,6 +12,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import Link from "next/link";
+import CssBaseline from "@mui/material/CssBaseline";
 
 const pages = [
   "Método de los cuadrados medios ",
@@ -48,6 +49,7 @@ const ResponsiveAppBar = () => {
 
   return (
     <AppBar position="static">
+      <CssBaseline />
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Link href="/">
