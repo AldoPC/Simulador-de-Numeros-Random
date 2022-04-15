@@ -101,15 +101,7 @@ export default function MetodoCentroCuadrado() {
                 setSize(event.target.value);
               }}
             />
-            <TextField
-              id="outlined-basic"
-              label="Alfa"
-              variant="outlined"
-              type="number"
-              onChange={(event) => {
-                setAlfa(event.target.value);
-              }}
-            />
+
             <Button
               variant="contained"
               onClick={() => {
