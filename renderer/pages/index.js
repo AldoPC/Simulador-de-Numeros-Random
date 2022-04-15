@@ -52,7 +52,7 @@ export default function ComplexGrid() {
               </Grid>
               <Grid item>
                 <Typography sx={{ cursor: "pointer" }} variant="body2">
-                  <Link href="/metodoCuadrados">Calcular</Link>
+                  {/* <Link href="/metodoCuadrados">Calcular</Link> */}
                 </Typography>
               </Grid>
             </Grid>
@@ -75,7 +75,7 @@ export default function ComplexGrid() {
               </Grid>
               <Grid item>
                 <Typography sx={{ cursor: "pointer" }} variant="body2">
-                  <Link href="/metodoCongruencialLineal">Calcular</Link>
+                  {/* <Link href="/metodoCongruencialLineal">Calcular</Link> */}
                 </Typography>
               </Grid>
             </Grid>
@@ -98,7 +98,7 @@ export default function ComplexGrid() {
               </Grid>
               <Grid item>
                 <Typography sx={{ cursor: "pointer" }} variant="body2">
-                  <Link href="/metodoCongruencialMixto">Calcular</Link>
+                  {/* <Link href="/metodoCongruencialMixto">Calcular</Link> */}
                 </Typography>
               </Grid>
             </Grid>
@@ -121,7 +121,7 @@ export default function ComplexGrid() {
               </Grid>
               <Grid item>
                 <Typography sx={{ cursor: "pointer" }} variant="body2">
-                  <Link href="/metodoCongruencialMultiplicativo">Calcular</Link>
+                  {/* <Link href="/metodoCongruencialMultiplicativo">Calcular</Link> */}
                 </Typography>
               </Grid>
             </Grid>
@@ -141,7 +141,7 @@ export default function ComplexGrid() {
               </Grid>
               <Grid item>
                 <Typography sx={{ cursor: "pointer" }} variant="body2">
-                  <Link href="/metodoCongruencialCombinado">Calcular</Link>
+                  {/* <Link href="/metodoCongruencialCombinado">Calcular</Link> */}
                 </Typography>
               </Grid>
             </Grid>
