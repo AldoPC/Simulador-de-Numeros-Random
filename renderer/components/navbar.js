@@ -13,6 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import Link from "next/link";
 import CssBaseline from "@mui/material/CssBaseline";
+import HomeIcon from "@mui/icons-material/Home";
 
 const pages = [
   ["Método de los cuadrados medios ", "/metodoCuadrados"],
@@ -59,7 +60,7 @@ const ResponsiveAppBar = () => {
               component="div"
               sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
             >
-              LOGO
+              <HomeIcon />
             </Typography>
           </Link>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -107,7 +108,7 @@ const ResponsiveAppBar = () => {
               component="div"
               sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
             >
-              LOGO
+              <HomeIcon />
             </Typography>
           </Link>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
