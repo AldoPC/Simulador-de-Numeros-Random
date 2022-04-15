@@ -11,14 +11,9 @@ const prepareNext = require("electron-next");
 app.on("ready", async () => {
   await prepareNext("./renderer");
 
-  const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      nodeIntegration: false,
-      preload: join(__dirname, "preload.js"),
-    },
-  });
+  const mainWindow = new BrowserWindow({ show: false });
+  mainWindow.maximize();
+  mainWindow.show();
 
   const url = isDev
     ? "http://localhost:8000"
