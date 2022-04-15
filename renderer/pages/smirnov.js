@@ -6,6 +6,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Stack from "@mui/material/Stack";
 
 const Smirnov = ({ nums, alfa }) => {
   const smirnov_komogorov = [
@@ -155,10 +156,14 @@ const Smirnov = ({ nums, alfa }) => {
     }
   }
   console.log(smirnov_komogorov[N][index]);
-  if (smirnov_komogorov[N][index] > D) {
-    check = "Se acepta";
-  } else if (smirnov_komogorov[N][index] < D) {
-    check = "Se rechaza";
+  if (nums.length === 0) {
+    check = "";
+  } else {
+    if (smirnov_komogorov[N][index] > D) {
+      check = "Se acepta";
+    } else if (smirnov_komogorov[N][index] < D) {
+      check = "Se rechaza";
+    }
   }
 
   console.log(
@@ -173,23 +178,57 @@ const Smirnov = ({ nums, alfa }) => {
     "\nCheck",
     check
   );
+  let table = [];
+  for (let i = 0; i < N; i++) {
+    let temp = [];
+    temp.push(nums[i]);
+    temp.push(totalDividedByI[i]);
+    temp.push(uniformOperation[i]);
+    temp.push(totalMinusFx[i]);
+    temp.push(totalMinusFxOffset[i]);
+    table.push(temp);
+  }
   return (
     <div>
       <Box sx={{ mb: 2, fontSize: "h4.fontSize", fontFamily: "Arial" }}>
         Smirnov
       </Box>
+      <Stack spacing={2} direction={{ xs: "column", sm: "row" }} mb={2}>
+        <Box sx={{ mb: 2, fontSize: "h5.fontSize", fontFamily: "Arial" }}>
+          Resultado de validación: {check}
+        </Box>
+        <Box sx={{ mb: 2, fontSize: "h5.fontSize", fontFamily: "Arial" }}>
+          Valor de D: {D} | Valor de tabla Kolmogrov-Smirnov:{" "}
+          {smirnov_komogorov[N][index]}
+        </Box>
+      </Stack>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>K</TableCell>
-              <TableCell>F0i observado</TableCell>
-              <TableCell>Probabilidad</TableCell>
-              <TableCell>FEi esperado</TableCell>
-              <TableCell>(F0 - FE)^2/FE</TableCell>
+              <TableCell align="center">Ri</TableCell>
+              <TableCell align="center">i/N</TableCell>
+              <TableCell align="center">x-a/b-a</TableCell>
+              <TableCell align="center">i/N - f(x)</TableCell>
+              <TableCell align="center">f(x) - (i-1)/N</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody></TableBody>
+          <TableBody>
+            {table.map((item) => (
+              <>
+                <TableRow
+                  key={item[0]}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell align="center">{item[0]}</TableCell>
+                  <TableCell align="center">{item[2]}</TableCell>
+                  <TableCell align="center">{item[1]}</TableCell>
+                  <TableCell align="center">{item[3]}</TableCell>
+                  <TableCell align="center">{item[4]}</TableCell>
+                </TableRow>
+              </>
+            ))}
+          </TableBody>
         </Table>
       </TableContainer>
     </div>

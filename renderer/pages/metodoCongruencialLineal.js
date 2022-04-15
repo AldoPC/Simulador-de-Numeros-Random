@@ -14,6 +14,7 @@ import ResponsiveAppBar from "../components/navbar";
 import { ThemeProvider } from "@emotion/react";
 import { createTheme } from "@mui/material/styles";
 import ChiCuadrada from "./chiCuadrada";
+import Smirnov from "./smirnov";
 
 const theme = createTheme({
   palette: {
@@ -23,7 +24,8 @@ const theme = createTheme({
 
 export default function CongruenciaLineal() {
   const [metodos, setMetodos] = React.useState([[]]);
-  const [chi_cuadrada, setChi_Cuadrada] = React.useState([]);
+  const [numbersToValidate, setNumbersToValidate] = React.useState([]);
+  const [alfa, setAlfa] = React.useState(0);
   const [seed, setSeed] = React.useState(0);
   const [size, setSize] = React.useState(0);
   const [multiplier, setMultiplier] = React.useState(0);
@@ -115,6 +117,15 @@ export default function CongruenciaLineal() {
                 setSize(event.target.value);
               }}
             />
+            <TextField
+              id="outlined-basic"
+              label="Alfa"
+              variant="outlined"
+              type="number"
+              onChange={(event) => {
+                setAlfa(event.target.value);
+              }}
+            />
             <Button
               variant="contained"
               onClick={() => {
@@ -134,10 +145,10 @@ export default function CongruenciaLineal() {
             <Button
               variant="contained"
               onClick={() => {
-                setChi_Cuadrada(updateValues);
+                setNumbersToValidate(updateValues);
               }}
             >
-              Calcular Chi-Cuadrada
+              Pruebas de bondad
             </Button>
           </Stack>
           <TableContainer component={Paper}>
@@ -166,7 +177,9 @@ export default function CongruenciaLineal() {
             </Table>
           </TableContainer>
           <br></br>
-          <ChiCuadrada nums={chi_cuadrada} alfa={0.05} />
+          <ChiCuadrada nums={numbersToValidate} alfa={alfa} />
+          <br></br>
+          <Smirnov nums={numbersToValidate} alfa={alfa} />
         </Box>
       </Paper>
     </ThemeProvider>

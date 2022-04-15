@@ -13,6 +13,8 @@ import Button from "@mui/material/Button";
 import ResponsiveAppBar from "../components/navbar";
 import { ThemeProvider } from "@emotion/react";
 import { createTheme } from "@mui/material/styles";
+import ChiCuadrada from "./chiCuadrada";
+import Smirnov from "./smirnov";
 
 function CongruencialMultiplicativo(seed, multiplier, module, size) {
   let newSeed = seed;
@@ -50,12 +52,24 @@ const theme = createTheme({
   },
 });
 
-export default function CongruencialMultiplicativo() {
+export default function CongruencialMultiplicativos() {
   const [metodos, setMetodos] = React.useState([[]]);
+  const [numbersToValidate, setNumbersToValidate] = React.useState([]);
+  const [alfa, setAlfa] = React.useState(0);
   const [seed, setSeed] = React.useState(0);
   const [size, setSize] = React.useState(0);
   const [multiplier, setMultiplier] = React.useState(0);
   const [module, setModule] = React.useState(0);
+
+  function updateValues() {
+    let temp = [];
+    for (let i = 0; i < size; i++) {
+      temp.push(metodos[i][2]);
+    }
+    console.log(temp);
+    return temp;
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <Paper
@@ -104,6 +118,15 @@ export default function CongruencialMultiplicativo() {
                 setSize(event.target.value);
               }}
             />
+            <TextField
+              id="outlined-basic"
+              label="Alfa"
+              variant="outlined"
+              type="number"
+              onChange={(event) => {
+                setAlfa(event.target.value);
+              }}
+            />
             <Button
               variant="contained"
               onClick={() => {
@@ -118,6 +141,14 @@ export default function CongruencialMultiplicativo() {
               }}
             >
               Calcular
+            </Button>
+            <Button
+              variant="contained"
+              onClick={() => {
+                setNumbersToValidate(updateValues);
+              }}
+            >
+              Pruebas de bondad
             </Button>
           </Stack>
           <TableContainer component={Paper}>
@@ -145,6 +176,10 @@ export default function CongruencialMultiplicativo() {
               </TableBody>
             </Table>
           </TableContainer>
+          <br></br>
+          <ChiCuadrada nums={numbersToValidate} alfa={alfa} />
+          <br></br>
+          <Smirnov nums={numbersToValidate} alfa={alfa} />
         </Box>
       </Paper>
     </ThemeProvider>

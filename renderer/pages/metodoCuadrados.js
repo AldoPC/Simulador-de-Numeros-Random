@@ -13,6 +13,8 @@ import Button from "@mui/material/Button";
 import ResponsiveAppBar from "../components/navbar";
 import { ThemeProvider } from "@emotion/react";
 import { createTheme } from "@mui/material/styles";
+import ChiCuadrada from "./chiCuadrada";
+import Smirnov from "./smirnov";
 
 const theme = createTheme({
   palette: {
@@ -24,6 +26,8 @@ export default function MetodoCentroCuadrado() {
   const [metodos, setMetodos] = React.useState([[]]);
   const [seed, setSeed] = React.useState(0);
   const [size, setSize] = React.useState(0);
+  const [numbersToValidate, setNumbersToValidate] = React.useState([]);
+  const [alfa, setAlfa] = React.useState(0);
 
   function MetodosCuadrados(size, seed) {
     let seedStr = seed.toString();
@@ -64,6 +68,15 @@ export default function MetodoCentroCuadrado() {
     return values;
   }
 
+  function updateValues() {
+    let temp = [];
+    for (let i = 0; i < size; i++) {
+      temp.push(metodos[i][3]);
+    }
+    console.log(temp);
+    return temp;
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <Paper
@@ -98,6 +111,15 @@ export default function MetodoCentroCuadrado() {
                 setSize(event.target.value);
               }}
             />
+            <TextField
+              id="outlined-basic"
+              label="Alfa"
+              variant="outlined"
+              type="number"
+              onChange={(event) => {
+                setAlfa(event.target.value);
+              }}
+            />
             <Button
               variant="contained"
               onClick={() => {
@@ -105,6 +127,14 @@ export default function MetodoCentroCuadrado() {
               }}
             >
               Calcular
+            </Button>
+            <Button
+              variant="contained"
+              onClick={() => {
+                setNumbersToValidate(updateValues);
+              }}
+            >
+              Pruebas de bondad
             </Button>
           </Stack>
           <TableContainer component={Paper}>
@@ -138,6 +168,10 @@ export default function MetodoCentroCuadrado() {
               </TableBody>
             </Table>
           </TableContainer>
+          <br></br>
+          <ChiCuadrada nums={numbersToValidate} alfa={alfa} />
+          <br></br>
+          <Smirnov nums={numbersToValidate} alfa={alfa} />
         </Box>
       </Paper>
     </ThemeProvider>

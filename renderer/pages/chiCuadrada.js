@@ -7,8 +7,6 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 
 const ChiCuadrada = ({ nums, alfa }) => {
   // console.log(nums);
@@ -314,10 +312,14 @@ const ChiCuadrada = ({ nums, alfa }) => {
     }
   }
 
-  if (chi_square[N][index] > sumFoFe) {
-    check = "Se acepta";
-  } else if (chi_square[N][index] < sumFoFe) {
-    check = "Se rechaza";
+  if (nums.length === 0) {
+    check = "";
+  } else {
+    if (chi_square[N][index] > sumFoFe) {
+      check = "Se acepta";
+    } else if (chi_square[N][index] < sumFoFe) {
+      check = "Se rechaza";
+    }
   }
 
   console.log(
@@ -354,23 +356,58 @@ const ChiCuadrada = ({ nums, alfa }) => {
     "\nAceptacion:",
     check
   );
+
+  let table = [];
+  for (let i = 0; i < updatedFoiObserved.length; i++) {
+    let temp = [];
+    temp.push(`(${updatedClassLeftLimit[i]} - ${updatedClassRightLimit[i]}]`);
+    temp.push(probability[i]);
+    temp.push(updatedFoiObserved[i]);
+    temp.push(foiExpected[i]);
+    temp.push(foFe[i]);
+    table.push(temp);
+  }
   return (
     <div>
       <Box sx={{ mb: 2, fontSize: "h4.fontSize", fontFamily: "Arial" }}>
         Chi Cuadrada
       </Box>
+      <Stack spacing={2} direction={{ xs: "column", sm: "row" }} mb={2}>
+        <Box sx={{ mb: 2, fontSize: "h5.fontSize", fontFamily: "Arial" }}>
+          Resultado de validación: {check}
+        </Box>
+        <Box sx={{ mb: 2, fontSize: "h5.fontSize", fontFamily: "Arial" }}>
+          Valor de X0^2: {sumFoFe} | Valor de tabla Chi - Cuadrada:{" "}
+          {chi_square[N][index]}
+        </Box>
+      </Stack>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>K</TableCell>
-              <TableCell>F0i observado</TableCell>
-              <TableCell>Probabilidad</TableCell>
-              <TableCell>FEi esperado</TableCell>
-              <TableCell>(F0 - FE)^2/FE</TableCell>
+              <TableCell align="center">K</TableCell>
+              <TableCell align="center">F0i observado</TableCell>
+              <TableCell align="center">Probabilidad</TableCell>
+              <TableCell align="center">FEi esperado</TableCell>
+              <TableCell align="center">(F0 - FE)^2/FE</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody></TableBody>
+          <TableBody>
+            {table.map((item) => (
+              <>
+                <TableRow
+                  key={item[0]}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell align="center">{item[0]}</TableCell>
+                  <TableCell align="center">{item[2]}</TableCell>
+                  <TableCell align="center">{item[1]}</TableCell>
+                  <TableCell align="center">{item[3]}</TableCell>
+                  <TableCell align="center">{item[4]}</TableCell>
+                </TableRow>
+              </>
+            ))}
+          </TableBody>
         </Table>
       </TableContainer>
     </div>
