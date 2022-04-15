@@ -44,13 +44,18 @@ export default function CongruencialMixto() {
       condition1 = true;
     }
 
-    if (module % (module / 2) === 0 && (multiplier - 1) % (module / 2) === 0) {
-      condition2 = true;
+    let primeDividers = primeFactors(module);
+    for (let i = 0; i < primeDividers.length; i++) {
+      if ((multiplier - 1) % primeDividers[i] === 0) {
+        condition2 = true;
+        break;
+      }
     }
 
     if (module % 4 === 0 && (multiplier - 1) % 4 === 0) {
       condition3 = true;
     }
+    console.log(condition1, condition2, condition3);
     if (condition1 && condition2 && condition3) {
       for (let i = 0; i < size; i++) {
         temp.push(newSeed);
@@ -71,11 +76,34 @@ export default function CongruencialMixto() {
     if (b === 0) return a;
     return gcd(b, a % b);
   }
+  function isPrime(n) {
+    // Corner case
+    if (n <= 1) return false;
+
+    // Check from 2 to n-1
+    for (let i = 2; i < n; i++) if (n % i == 0) return false;
+
+    return true;
+  }
+
+  function primeFactors(n) {
+    let c = 2;
+    let temp = [];
+    while (n > 1) {
+      if (n % c == 0) {
+        console.log(c);
+        console.log(n);
+        temp.push(c);
+        n /= c;
+      } else c++;
+    }
+    return temp;
+  }
 
   function updateValues() {
     let temp = [];
     for (let i = 0; i < size; i++) {
-      temp.push(metodos[i][3]);
+      temp.push(metodos[i][2]);
     }
     console.log(temp);
     return temp;
@@ -141,6 +169,15 @@ export default function CongruencialMixto() {
               type="number"
               onChange={(event) => {
                 setSize(event.target.value);
+              }}
+            />
+            <TextField
+              id="outlined-basic"
+              label="Alfa"
+              variant="outlined"
+              type="number"
+              onChange={(event) => {
+                setAlfa(event.target.value);
               }}
             />
             <Button
