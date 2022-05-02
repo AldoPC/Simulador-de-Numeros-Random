@@ -9,8 +9,6 @@ import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 
 const ChiCuadrada = ({ nums, alfa }) => {
-  // console.log(nums);
-  // console.log("HERE");
   const chi_square = [
     [
       0, 0.995, 0.99, 0.975, 0.95, 0.9, 0.5, 0.2, 0.1, 0.05, 0.025, 0.02, 0.01,
@@ -317,9 +315,9 @@ const ChiCuadrada = ({ nums, alfa }) => {
   if (nums.length === 0) {
     check = "";
   } else {
-    if (chi_square[N][index] > sumFoFe) {
+    if (chi_square[updatedFoiObserved - 1][index] > sumFoFe) {
       check = "Se acepta";
-    } else if (chi_square[N][index] < sumFoFe) {
+    } else if (chi_square[updatedFoiObserved - 1][index] < sumFoFe) {
       check = "Se rechaza";
     }
   }
@@ -380,7 +378,7 @@ const ChiCuadrada = ({ nums, alfa }) => {
         </Box>
         <Box sx={{ mb: 2, fontSize: "h5.fontSize", fontFamily: "Arial" }}>
           Valor de X0^2: {sumFoFe} | Valor de tabla Chi - Cuadrada:{" "}
-          {chi_square[N][index]}
+          {chi_square[updatedFoiObserved - 1][index]}
         </Box>
       </Stack>
       <TableContainer component={Paper}>
