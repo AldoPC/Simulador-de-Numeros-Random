@@ -322,45 +322,6 @@ const ChiCuadrada = ({ nums, alfa }) => {
   }
   let valueOfChi = chi_square[updatedFoiObserved.length - 1][index];
 
-  console.log(
-    "\nK",
-    K,
-    "\na",
-    a,
-    "\nb",
-    b,
-    "\nclassRange",
-    classRange,
-    "\nclassLeftLimits",
-    classLeftLimits,
-    "\nclassRightLimits",
-    classRightLimits,
-    "\nclassNums",
-    classNums,
-    "\nfoiObserved",
-    foiObserved,
-    "\nupdatedFoiObserved",
-    updatedFoiObserved,
-    "\nupdatedClassLeftLimit",
-    updatedClassLeftLimit,
-    "\nupdatedClassRightLimit",
-    updatedClassRightLimit,
-    "\nprobability",
-    probability,
-    "\nfoiExpected",
-    foiExpected,
-    "\nfoFe",
-    foFe,
-    "\nsumFoFe",
-    sumFoFe,
-    "\nAceptacion:",
-    check,
-    "\nLength",
-    nums.length,
-    "\nIndex",
-    index
-  );
-
   let table = [];
 
   for (let i = 0; i < updatedFoiObserved.length; i++) {

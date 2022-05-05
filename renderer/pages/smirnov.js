@@ -138,17 +138,21 @@ const Smirnov = ({ nums, alfa }) => {
   let totalMinusFxOffset = [];
   for (let i = 0; i < N; i++) {
     if (i == 0) {
-      totalMinusFxOffset.push(Math.abs(0 - uniformOperation[i]));
+      totalMinusFxOffset.push(Math.abs(0 - nums[i]));
+      console.log("entro");
       continue;
     }
-    totalMinusFxOffset.push(
-      Math.abs(totalDividedByI[i - 1] - uniformOperation[i])
-    );
+    totalMinusFxOffset.push(Math.abs(totalDividedByI[i - 1] - nums[i]));
   }
 
   const DPlus = Math.max(...totalMinusFx);
   const DMinus = Math.max(...totalMinusFxOffset);
   const D = Math.max(DPlus, DMinus);
+  console.log("DPlus:", DPlus);
+  console.log("DMinus:", DMinus);
+  console.log("D:", D);
+  console.log("totalMinusFx", totalMinusFx);
+  console.log("totalMinusFxOffset", totalMinusFxOffset);
 
   let index, check;
   for (let i = 0; i < smirnov_komogorov[0].length; i++) {
