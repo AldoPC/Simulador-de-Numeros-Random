@@ -157,7 +157,6 @@ const Smirnov = ({ nums, alfa }) => {
       break;
     }
   }
-  console.log(smirnov_komogorov[N][index]);
   if (nums.length === 0) {
     check = "";
   } else {
@@ -168,18 +167,6 @@ const Smirnov = ({ nums, alfa }) => {
     }
   }
 
-  console.log(
-    "\ntotalDividedByI",
-    totalDividedByI,
-    "\nuniformOperation",
-    uniformOperation,
-    "\ntotalMinusFx",
-    totalMinusFx,
-    "\ntotalMinusFxOffset",
-    totalMinusFxOffset,
-    "\nCheck",
-    check
-  );
   let table = [];
   for (let i = 0; i < N; i++) {
     let temp = [];

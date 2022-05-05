@@ -55,7 +55,6 @@ export default function CongruencialMixto() {
     if (module % 4 === 0 && (multiplier - 1) % 4 === 0) {
       condition3 = true;
     }
-    console.log(condition1, condition2, condition3);
     if (condition1 && condition2 && condition3) {
       for (let i = 0; i < size; i++) {
         temp.push(newSeed);
@@ -91,8 +90,6 @@ export default function CongruencialMixto() {
     let temp = [];
     while (n > 1) {
       if (n % c == 0) {
-        console.log(c);
-        console.log(n);
         temp.push(c);
         n /= c;
       } else c++;
@@ -105,7 +102,6 @@ export default function CongruencialMixto() {
     for (let i = 0; i < size; i++) {
       temp.push(metodos[i][2]);
     }
-    console.log(temp);
     return temp;
   }
 
